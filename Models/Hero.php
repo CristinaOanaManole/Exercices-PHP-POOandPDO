@@ -9,9 +9,93 @@ require 'Models/Character.php';
 
 #Les attributs ne doivent être accessibles **pour personne !**
 
-class Hero {
-private $weapon;
-private $weaponDamage;
-private $shield;
-private $shieldValue;
+
+class Hero extends Character {
+
+    private $weapon;
+    private $weaponDamage;
+    private $shield;
+    private $shieldValue;
+
+    
+
+    /**
+     * Get the value of weapon
+     */ 
+    public function getWeapon()
+    {
+        return $this->weapon;
+    }
+
+    /**
+     * Set the value of weapon
+     *
+     * @return  self
+     */ 
+    public function setWeapon($weapon)
+    {
+        $this->weapon = $weapon;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of weaponDamage
+     */ 
+    public function getWeaponDamage()
+    {
+        return $this->weaponDamage;
+    }
+
+    /**
+     * Set the value of weaponDamage
+     *
+     * @return  self
+     */ 
+    public function setWeaponDamage($weaponDamage)
+    {
+        $this->weaponDamage = $weaponDamage;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of shield
+     */ 
+    public function getShield()
+    {
+        return $this->shield;
+    }
+
+    /**
+     * Set the value of shield
+     *
+     * @return  self
+     */ 
+    public function setShield($shield)
+    {
+        $this->shield = $shield;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of shieldValue
+     */ 
+    public function getShieldValue()
+    {
+        return $this->shieldValue;
+    }
+
+    /**
+     * Set the value of shieldValue
+     *
+     * @return  self
+     */ 
+    public function setShieldValue($shieldValue)
+    {
+        $this->shieldValue = $shieldValue;
+
+        return $this;
+    }
 }
