@@ -1,5 +1,5 @@
 <?php
-require 'Models/Character.php';
+
 ## Exercice 4
 # Dans un nouveau fichier **Hero.php**, créer la classe **Hero héritant de Character** et ayant pour attributs **weapon**, **weaponDamage**, **shield** et **shieldValue**.  
 # * L'attribut **weapon** permettra de définir le nom de l'arme équipée,  
@@ -9,15 +9,12 @@ require 'Models/Character.php';
 
 #Les attributs ne doivent être accessibles **pour personne !**
 
-
 class Hero extends Character {
 
     private $weapon;
     private $weaponDamage;
     private $shield;
     private $shieldValue;
-
-    
 
     /**
      * Get the value of weapon
