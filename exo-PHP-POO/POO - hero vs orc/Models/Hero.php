@@ -2,18 +2,18 @@
 
 class Hero extends Character {
 
+    // Attributs
     private $weapon;
     private $weaponDamage;
     private $shield;
     private $shieldValue;
 
-    
+    // Méthodes permettant d'accéder aux attributs de la classe **Hero** et permettant également de les définir.
 
     /**
      * Get the value of weapon
      */ 
-    public function getWeapon()
-    {
+    public function getWeapon() {
         return $this->weapon;
     }
 
@@ -22,18 +22,15 @@ class Hero extends Character {
      *
      * @return  self
      */ 
-    public function setWeapon($weapon)
-    {
+    public function setWeapon($weapon) {
         $this->weapon = $weapon;
-
         return $this;
     }
 
     /**
      * Get the value of weaponDamage
      */ 
-    public function getWeaponDamage()
-    {
+    public function getWeaponDamage() {
         return $this->weaponDamage;
     }
 
@@ -42,18 +39,15 @@ class Hero extends Character {
      *
      * @return  self
      */ 
-    public function setWeaponDamage($weaponDamage)
-    {
+    public function setWeaponDamage($weaponDamage) {
         $this->weaponDamage = $weaponDamage;
-
         return $this;
     }
 
     /**
      * Get the value of shield
      */ 
-    public function getShield()
-    {
+    public function getShield() {
         return $this->shield;
     }
 
@@ -62,18 +56,15 @@ class Hero extends Character {
      *
      * @return  self
      */ 
-    public function setShield($shield)
-    {
+    public function setShield($shield) {
         $this->shield = $shield;
-
         return $this;
     }
 
     /**
      * Get the value of shieldValue
      */ 
-    public function getShieldValue()
-    {
+    public function getShieldValue() {
         return $this->shieldValue;
     }
 
@@ -82,12 +73,11 @@ class Hero extends Character {
      *
      * @return  self
      */ 
-    public function setShieldValue($shieldValue)
-    {
+    public function setShieldValue($shieldValue) {
         $this->shieldValue = $shieldValue;
-
         return $this;
     }
+
 
     public function __construct($health, $rage, $shieldValue, $weaponDamage, $weaponName, $shieldName) {
         parent::__construct($health, $rage);
@@ -95,18 +85,18 @@ class Hero extends Character {
         $this->setWeaponDamage($weaponDamage);
         $this->setShield($shieldName);
         $this->setShieldValue($shieldValue);
-        echo "Je possède l'arme" . $this->getWeapon() . ", qui fait " . $this->getWeaponDamage() . " dégâts, j'ai une armure " . $this->getShield() . ", qui bloque " . $this->getShieldValue() . " de dégâts";
-        echo "J'ai " . parent::getHealth() . " points de vie, je suis énervé à " . parent::getRage() . "%";
+        echo "Je possède l'arme " . $this->getWeapon() . ", qui fait " . $this->getWeaponDamage() . " dégâts, j'ai une armure " . $this->getShield() . ", qui bloque " . $this->getShieldValue() . " de dégâts<br><br>";
+        echo "J'ai " . parent::getHealth() . " points de vie, je suis énervé à " . parent::getRage() . "%<br><br>";
     }
 
+    // le personnage perd 100pts de vie à chaque atk 
     public function attacked($orcDamage) {
         $notProtectedDamage = $orcDamage - $this->getShieldValue();
         parent::setHealth(parent::getHealth() - $notProtectedDamage);
-        $this->addRage();
+        $this->increaseRage();
     }
 
-    public function addRage() {
+    public function increaseRage () {
         parent::setRage(parent::getRage() + 30);
     }
 }
-

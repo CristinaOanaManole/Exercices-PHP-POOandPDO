@@ -109,4 +109,3 @@ class Hero extends Character {
         parent::setRage(parent::getRage() + 30);
     }
 }
-
