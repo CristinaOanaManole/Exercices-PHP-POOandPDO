@@ -15,9 +15,31 @@ $sql = "SELECT * FROM clients";
  </head>
  <body>
      
-<div class="container">
-
-</div>
+ <h1>Liste des clients</h1>
+ <table>
+   <thead>
+     <tr>
+       <th>ID</th>
+       <th>Nom</th>
+       <th>Prénom</th>
+       <th>Date de naissance</th>
+       <th>Card</th>
+       <th>Numéro de card</th>
+     </tr>
+   </thead>
+   <tbody>
+     <?php while($row = $sth->fetch(PDO::FETCH_OBJ)) : ?>
+     <tr>
+       <td><?php echo htmlspecialchars($row['id']); ?></td>
+       <td><?php echo htmlspecialchars($row['lastName']); ?></td>
+       <td><?php echo htmlspecialchars($row['firstName']); ?></td>
+       <td><?php echo htmlspecialchars($row['birthDate']); ?></td>
+       <td><?php echo htmlspecialchars($row['card']); ?></td>
+       <td><?php echo htmlspecialchars($row['cardNumber']); ?></td>
+     </tr>
+     <?php endwhile; ?>
+   </tbody>
+ </table>
 
      
  </body>
