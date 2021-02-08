@@ -1,6 +1,6 @@
 <?php
 
-require 'sqlconnect.php';
+require "Models/Database.php";
 
  ?>
 
