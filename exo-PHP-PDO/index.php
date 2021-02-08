@@ -1,7 +1,8 @@
 <?php
 
 require "Models/Database.php";
-$sql = "SELECT * FROM clients";
+$sqlC = "SELECT * FROM clients";
+$sqlS = "SELECT * FROM shows";
 
  ?>
 
@@ -14,8 +15,9 @@ $sql = "SELECT * FROM clients";
      <title>Partie 1 - PDO</title>
  </head>
  <body>
-     
+
  <h1>Liste des clients</h1>
+/** ## Exercice 1 - Afficher tous les clients.*/
  <table>
    <thead>
      <tr>
@@ -28,7 +30,7 @@ $sql = "SELECT * FROM clients";
      </tr>
    </thead>
    <tbody>
-     <?php while($row = $sth->fetch(PDO::FETCH_OBJ)) : ?>
+     <?php while($row = $stmt->fetch(PDO::FETCH_OBJ)) : ?>
      <tr>
        <td><?php echo htmlspecialchars($row['id']); ?></td>
        <td><?php echo htmlspecialchars($row['lastName']); ?></td>
@@ -41,6 +43,40 @@ $sql = "SELECT * FROM clients";
    </tbody>
  </table>
 
+ /** ## Exercice 2 - Afficher tous les types de spectacles possibles.*/
+
+ <table>
+   <thead>
+     <tr>
+       <th>ID</th>
+       <th>Title</th>
+       <th>Artiste</th>
+       <th>Date</th>
+       <th>Type de spectacle</th>
+       <th>Le plus visioné</th>
+       <th>Le second le plus visioné</th>
+       <th>Durée</th>
+       <th>Date du début</th>
+     </tr>
+   </thead>
+   <tbody>
+     <?php while($row = $sqlS->fetch(PDO::FETCH_OBJ)) : ?>
+     <tr>
+       <td><?php echo htmlspecialchars($row['id']); ?></td>
+       <td><?php echo htmlspecialchars($row['title']); ?></td>
+       <td><?php echo htmlspecialchars($row['performer']); ?></td>
+       <td><?php echo htmlspecialchars($row['date']); ?></td>
+       <td><?php echo htmlspecialchars($row['showTypeId']); ?></td>
+       <td><?php echo htmlspecialchars($row['firstGenresId']); ?></td>
+       <td><?php echo htmlspecialchars($row['secondGenresId']); ?></td>
+       <td><?php echo htmlspecialchars($row['duration']); ?></td>
+       <td><?php echo htmlspecialchars($row['startTime']); ?></td>
+     </tr>
+     <?php endwhile; ?>
+   </tbody>
+ </table>
      
+/** ## Exercice 3 - Afficher les 20 premiers clients. */
+
  </body>
  </html>

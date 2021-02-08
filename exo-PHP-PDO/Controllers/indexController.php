@@ -1,4 +1,4 @@
 <?php
 
 require "Models/Database.php";
-$database new Database();
+$database  = new Database();
