@@ -1,6 +1,7 @@
 <?php
 
 require "Models/Database.php";
+$sql = "SELECT * FROM clients";
 
  ?>
 
@@ -14,7 +15,9 @@ require "Models/Database.php";
  </head>
  <body>
      
+<div class="container">
 
+</div>
 
      
  </body>
