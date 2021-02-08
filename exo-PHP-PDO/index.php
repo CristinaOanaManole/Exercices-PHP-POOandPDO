@@ -1,9 +1,12 @@
 <?php
 
-require "Models/Database.php";
-$sqlC = "SELECT * FROM clients";
-$sqlS = "SELECT * FROM shows";
+require "Controllers/indexController.php";
 
+foreach ($resultShowTypes as $key => $value) {
+    ?>
+<p><?= $value['type'] ?></p>
+    <?php 
+}
  ?>
 
  <!DOCTYPE html>
@@ -30,7 +33,7 @@ $sqlS = "SELECT * FROM shows";
      </tr>
    </thead>
    <tbody>
-     <?php while($row = $stmt->fetch(PDO::FETCH_OBJ)) : ?>
+     <?php while($row = $stmt->fetch(PDO::FETCH_ALL)) : ?>
      <tr>
        <td><?php echo htmlspecialchars($row['id']); ?></td>
        <td><?php echo htmlspecialchars($row['lastName']); ?></td>

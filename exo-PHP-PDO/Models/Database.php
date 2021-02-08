@@ -1,37 +1,31 @@
 <?php
-/*
-$servername = 'localhost';
-$username = 'root';
-$password = '';
-/* Connexion avec la base de donnée 
- $connexion = new PDO("mysql:host=$servername;dbname=sql_colyseum", $username, $password);*/
+
 class Database {
-    private $database;
+
+    private $db;
 
     /**
-     * Get the value of database
+     * Get the value of db
      */ 
-    public function getDatabase()
+    public function getDb()
     {
-        return $this->database;
+        return $this->db;
     }
 
     /**
-     * Set the value of database
+     * Set the value of db
      *
      * @return  self
      */ 
-    public function setDatabase($database)
+    public function setDb($db)
     {
-        $this->database = $database;
+        $this->db = $db;
 
         return $this;
     }
+
     public function __construct() {
-$this->setDB(new PDO('mysql:dbname=sql_colyseum;host=localhost;charset=utf8', 'root', '', [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]));
+
+        $this->setDb(new PDO("mysql:dbname=cinema;host=localhost;charset=utf8", "root", "", [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]));
     }
 }
-
-
-
- ?>

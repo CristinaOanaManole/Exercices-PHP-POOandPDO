@@ -1,4 +1,5 @@
 <?php
+
 class Users extends Database {
 
     private $id;
@@ -133,5 +134,16 @@ class Users extends Database {
         return $this;
     }
 
-    
+    public function getAllClients() {
+        $query = "SELECT * FROM `clients`";
+        $queryGetAllClients = parent::getDb()->prepare($query);
+        $queryGetAllClients->execute();
+        $resultsQuery = $queryGetAllClients->fetchAll(PDO::FETCH_ASSOC);
+        if(!empty($resultsQuery)) {
+            return $resultsQuery;
+        } else {
+            return false;
+        }
+    }
+
 }
