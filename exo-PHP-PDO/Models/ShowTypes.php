@@ -1,6 +1,6 @@
 <?php
 
-class ShowsTypes extends Database {
+class ShowTypes extends Database {
 
     private $id;
     private $type;

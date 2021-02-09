@@ -1,6 +1,6 @@
 <?php
 
-class Users extends Database {
+class Clients extends Database {
 
     private $id;
     private $lastName;
@@ -135,15 +135,64 @@ class Users extends Database {
     }
 
     public function getAllClients() {
-        $query = "SELECT * FROM `clients`";
-        $queryGetAllClients = parent::getDb()->prepare($query);
+        $clients = "SELECT * FROM `clients`";
+        $queryGetAllClients = parent::getDb()->prepare($clients);
         $queryGetAllClients->execute();
-        $resultsQuery = $queryGetAllClients->fetchAll(PDO::FETCH_ASSOC);
-        if(!empty($resultsQuery)) {
-            return $resultsQuery;
+        $resultsClients = $queryGetAllClients->fetchAll(PDO::FETCH_ASSOC);
+        if(!empty($resultsClients)) {
+            return $resultsClients;
         } else {
             return false;
         }
     }
+
+public function getFirst_20_clients() {
+    $client = "SELECT * FROM `clients` LIMIT 0, 20";
+    $getFirst_20_clients = parent::getDb()->prepare($client);
+        $getFirst_20_clients->execute();
+        $resultsFirst_20_clients = $getFirst_20_clients->fetchAll(PDO::FETCH_ASSOC);
+        if(!empty($resultsFirst_20_clients)) {
+            return $resultsFirst_20_clients;
+        } else {
+            return false;
+        }
+}
+
+public function getCardFidelity() {
+    $cardFidelity = "SELECT `clients`.`lastName`, `clients`.`firstName` 
+    FROM `clients` 
+    INNER JOIN `cards` 
+    ON `clients`.`cardNumber` = `cards`.`cardNumber` 
+    INNER JOIN `cardTypes` 
+    ON `cards`.`cardTypesID` = `cardTypes`.`id` 
+    WHERE `type` = 'Fidélité'";
+    $getCardFidelity = parent::getDb()->prepare($cardFidelity);
+        $getCardFidelity->execute();
+        $resultsCardFidelity = $getCardFidelity->fetchAll(PDO::FETCH_ASSOC);
+        if(!empty($resultsCardFidelity)) {
+            return $resultsCardFidelity;
+        } else {
+            return false;
+        }
+}
+
+public function getClientsM() {
+    $clientsM = "SELECT `clients`.`id`, `clients`.`lastName`, `clients`.`firstName`
+    FROM clients 
+    WHERE `lastName`
+    LIKE 'M%' 
+    ORDER BY `lastName`";
+    $getClientsM = parent::getDb()->prepare($clientsM);
+        $getClientsM->execute();
+        $resultsClientsM = $getClientsM->fetchAll(PDO::FETCH_ASSOC);
+        if(!empty($resultsClientsM)) {
+            return $resultsClientsM;
+        } else {
+            return false;
+        }
+}
+
+
+
 
 }
