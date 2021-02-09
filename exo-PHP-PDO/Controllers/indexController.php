@@ -8,7 +8,7 @@ $Clients = new Clients();
 $ShowTypes = new ShowTypes();
 $Shows = new Shows();
 
-$resultClients = ($Clients->getAllClients()); //Exercice 1 : Afficher tous les clients.
+$resultsClients = ($Clients->getAllClients()); //Exercice 1 : Afficher tous les clients.
 $resultsQuery = ($ShowTypes->getAllShowsTypes());//Exercice 2 : Afficher tous les types de spectacles possibles.
 $resultsFirst_20_clients = ($Clients->getFirst_20_clients());//Exercise 3 : Afficher les 20 premiers clients.
 $resultsCardFidelity = ($Clients->getCardFidelity());//Exercice 4 : N'afficher que les clients possédant une carte de fidélité.

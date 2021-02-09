@@ -47,3 +47,45 @@ foreach ($resultsgetShows as $key => $value) {
 }
 ?>
 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDO exercice 7</title>
+</head>
+<body>
+  
+
+<?php
+//Exercice 7 : Afficher tous les clients comme ceci : **Nom :** *Nom de famille du client*
+//**Prénom :** *Prénom du client* **Date de naissance :** *Date de naissance du client*
+//**Carte de fidélité :** *Oui (Si le client en possède une) ou Non (s'il n'en possède pas)*
+//**Numéro de carte :** *Numéro de la carte fidélité du client s'il en possède une.*
+
+foreach ($resultsClients as $key => $value) { 
+?>
+<table>
+<tr>
+<th>Nom : <?= $value["lastName"] ?></th>
+</tr>
+&nbsp;
+<tr>
+<th>Prénom : <?= $value["firstName"]?></th>
+</tr>
+<tr>
+<th>Date de naissance : <?= $value['birthDate'] ?></th>
+</tr>
+<tr>
+<th>Carte de fidélité : <?= $value['card'] == 1 ? 'Oui' : 'Non'?></th>
+</tr>
+<tr>
+<th>Numéro de carte : <?= $value['cardNumber'] == !null ? 'Numéro de carte : ' . $value['cardNumber'] : '' ?></th>
+</tr>
+<?php
+}
+?>
+
+</body>
+</html>
