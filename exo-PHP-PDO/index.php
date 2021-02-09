@@ -53,6 +53,7 @@ foreach ($resultsgetShows as $key => $value) {
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="assets/style.css">
   <title>PDO exercice 7</title>
 </head>
 <body>
@@ -68,7 +69,7 @@ foreach ($resultsClients as $key => $value) {
 ?>
 <table>
 <tr>
-<th>Nom : <?= $value["lastName"] ?></th>
+<th>Nom : <?= $value["lastName"] ?></th><?php echo '<style> th { text-align: left} </style>' ?>
 </tr>
 &nbsp;
 <tr>
@@ -81,7 +82,7 @@ foreach ($resultsClients as $key => $value) {
 <th>Carte de fidélité : <?= $value['card'] == 1 ? 'Oui' : 'Non'?></th>
 </tr>
 <tr>
-<th>Numéro de carte : <?= $value['cardNumber'] == !null ? 'Numéro de carte : ' . $value['cardNumber'] : '' ?></th>
+<th>Numéro de carte : <?= $value['cardNumber'] == !null ?? 'Numéro de carte : ' . $value['cardNumber'] ?></th>
 </tr>
 <?php
 }
