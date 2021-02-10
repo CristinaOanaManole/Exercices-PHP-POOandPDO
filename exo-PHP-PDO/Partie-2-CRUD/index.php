@@ -17,7 +17,7 @@ require "Controller/indexController.php";
   
 <h1>Indiquer vos coordonnées</h1>
 
-<form method="post" action="traitement.php"> 
+<form method="post" action=".php"> 
 <label for="lastname">Votre nom : </label>
 <a href="Views/ajout-patient.php">Enregistrer un patient</a>
 <?php
