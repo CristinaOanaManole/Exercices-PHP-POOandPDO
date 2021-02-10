@@ -1,4 +1,5 @@
 <?php 
+require "Controller/liste-patientsController.php";
 ?>
 
 <!DOCTYPE html>
@@ -15,12 +16,10 @@
     <?php
 foreach ($resultQueryShowPatients as $value) {
     ?>
-<p><a href="Profil-patient.php?id=<?=$value["id"]?><?= $value["lastname"] . " " . $value["firstname"] ?>"</a></p>
+<p><a href="profil-patient.php?id=<?=$value["id"]?><?= $value["lastname"] . " " . $value["firstname"] . " " . $value["birthdate"] . " " . $value["phone"] . " " . $value["mail"] ?>"</a></p>
 <?php
 }
 ?>
-
-    ?>
     </div>
 </body>
 </html>

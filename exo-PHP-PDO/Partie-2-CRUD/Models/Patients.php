@@ -156,12 +156,25 @@ class AddPatient extends Database {
         $query = "SELECT * FROM `patients`";
         $buildQuery = $this->getDb()->prepare($query);
         $buildQuery->execute();
-        $resultQuery = $buildQuery->fetchAll(PDO::FETCH_ASSOC);
-        if (!empty($resultQuery)) {
-            return $resultQuery;
+        $resultQueryShowPatients = $buildQuery->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($resultQueryShowPatients)) {
+            return $resultQueryShowPatients;
         } else {
             return false;
         }
     }
-    
+
+    public function getOnePatients($patientId) {
+        $query = "SELECT * FROM Patients WHERE id = :patientId";
+        $queryGetOnePatients = parent::getDb()->prepare($query);
+        $queryGetOnePatients->bindValue("patientId", $patientId, PDO::PARAM_INT);
+        $queryGetOnePatients->execute();
+        $resultsQuery = $queryGetOnePatients->fetch();
+        if(!empty($resultsQuery)) {
+            return $resultsQuery;
+        } else {
+            return false;
+        }
+    }
+ 
 }

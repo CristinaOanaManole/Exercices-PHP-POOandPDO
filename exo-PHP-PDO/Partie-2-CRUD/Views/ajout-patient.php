@@ -25,7 +25,7 @@
 
 <div>
             <label for="birthdate">Date de naissance : </label>
-            <input type="number" name="birthdate" id="birthdate">
+            <input type="text" name="birthdate" id="birthdate">
 </div>
 <div>
             <label for="phone">Numéro de téléphone : </label>
@@ -39,7 +39,7 @@
             <input type="submit" name="Valider" value="Envoyer">
         </form>
 
-<a href="../index.php">Retour à l'accueil</a>
+<a href="index.php">Retour à l'accueil</a>
 
 </body>
 </html>

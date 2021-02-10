@@ -1,8 +1,9 @@
 <?php
 require "database/Database.php";
-require "Views/Ajout-patient.php";
-require "Views/Liste-patients.php";
-require "Views/Liste-rendezvous.php";
+require "Views/ajout-patient.php";
+require "Views/liste-patients.php";
+require "Views/profil-patient.php";
+require "Views/liste-rendezvous.php";
 
 $patients = new Patients();
 

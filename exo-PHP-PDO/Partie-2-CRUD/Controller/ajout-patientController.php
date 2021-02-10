@@ -1,6 +1,6 @@
 <?php
 
-require "Views/Ajout-patient.php";
+require "Views/ajout-patient.php";
 
 $patients = new Patients();
 

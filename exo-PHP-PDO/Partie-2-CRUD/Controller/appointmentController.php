@@ -1,5 +1,5 @@
 <?php
-require "../Models/Database.php";
+require "../database/Database.php";
 require "../Models/Appointment.php";
 
 
