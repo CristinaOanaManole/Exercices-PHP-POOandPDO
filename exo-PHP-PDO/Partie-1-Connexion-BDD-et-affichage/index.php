@@ -82,7 +82,7 @@ foreach ($resultsClients as $key => $value) {
 <th>Carte de fidélité : <?= $value['card'] == 1 ? 'Oui' : 'Non'?></th>
 </tr>
 <tr>
-<th>Numéro de carte : <?= $value['cardNumber'] == !null ?? 'Numéro de carte : ' . $value['cardNumber'] ?></th>
+<th>Numéro de carte : <?= $value['cardNumber'] == !null ? 'Numéro de carte : ' . $value['cardNumber'] : ''?></th>
 </tr>
 <?php
 }
