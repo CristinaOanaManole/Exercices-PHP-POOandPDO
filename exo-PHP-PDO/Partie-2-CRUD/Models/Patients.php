@@ -134,8 +134,16 @@ public function __construct() {
     parent::__construct();
 }
 
-public function addPatient($arrayParameters) {
-    $query = "INSERT INTO `patients` (`lastname`, `firstname`, `birthdate`, `phone`, `mail`) VALUES (:lastname, :firstname, :birthdate, :phone, :mail)";
+
+ /**
+     * Méthode qui permet d'ajouter un patient en base de données
+     * 
+     * @param array
+     * @return boolean
+     */
+    public function addPatient($arrayParameters) {
+    $query = "INSERT INTO `patients` (`lastname`, `firstname`, `birthdate`, `phone`, `mail`)
+              VALUES (:lastname, :firstname, :birthdate, :phone, :mail)";
     $buildQuery = parent::getDb()->prepare($query);
     $buildQuery->bindValue("lastname", $arrayParameters["lastname"], PDO::PARAM_STR);
     $buildQuery->bindValue("firstname", $arrayParameters["firstname"], PDO::PARAM_STR);
@@ -145,6 +153,11 @@ public function addPatient($arrayParameters) {
     return $buildQuery->execute();
 }
 
+/**
+     * Méthode qui permet de récupérer les informations de tous les patients
+     * 
+     * @return array|boolean
+     */
     public function displayPatients() {
         $query = "SELECT * FROM `patients`";
         $buildQuery = $this->getDb()->prepare($query);
@@ -157,6 +170,12 @@ public function addPatient($arrayParameters) {
         }
     }
 
+/**
+     * Méthode qui permet de récupérer les informations d'un patient en particulier
+     * 
+     * @param int
+     * @return array|boolean
+     */
     public function getOnePatients($patientId) {
         $query = "SELECT * FROM Patients WHERE id = :patientId";
         $queryGetOnePatients = parent::getDb()->prepare($query);
@@ -188,24 +207,115 @@ public function addPatient($arrayParameters) {
         return $buildQuery->execute();
     }
 
-    public function getPatients()
-    {
-        $query = "SELECT * FROM `patients`";
-        $getPatients = parent::getDb()->prepare($query);
-        $getPatients->execute();
-        $resultQuery = $getPatients->fetchAll(PDO::FETCH_ASSOC);
-        if (!empty($resultQuery)) {
+       /**
+     * Méthode permettant de récupérer tous les RDV de la base associés aux noms et prénoms des patients concernés
+     * 
+     * @return array|boolean
+     */
+    public function getAllAppointmentsWithLightPatientInformations() {
+        $query = "SELECT `appointments`.`id`, `patients`.`lastname`, `patients`.`firstname`, `appointments`.`dateHour`
+            FROM `patients`
+            INNER JOIN `appointments`
+            ON `patients`.`id` = `appointments`.`idPatients`;";
+        $buildQuery = parent::getDb()->prepare($query);
+        $buildQuery->execute();
+        $resultQuery = $buildQuery->fetchAll(PDO::FETCH_ASSOC);
+        if(!empty($resultQuery)) {
             return $resultQuery;
         } else {
             return false;
         }
     }
 
-    public function deletePatient($id){
-        $query = "DELETE FROM `patients` WHERE `id` = :id";
-        $deletePatient = parent::getDb()->prepare($query);
-        $deletePatient->bindValue("id" , $id , PDO::PARAM_STR); 
-        return $deletePatient->execute();
+    /**
+     * Méthode permettant de récupérer toutes les informations d'un RDV en particulier (informations sur le RDV + informations sur le patient concerné)
+     * 
+     * @param int
+     * @return array|boolean
+     */
+    public function getOneAppointmentWithPatientInformations(int $id) {
+        $query = "SELECT `appointments`.`id` AS `appointmentId`, `appointments`.`dateHour`, `patients`.`id` AS `patientsId`, `patients`.`lastname`, `patients`.`firstname`, `patients`.`birthdate`, `patients`.`phone`, `patients`.`mail`
+            FROM `patients`
+            INNER JOIN `appointments`
+            ON `patients`.`id` = `appointments`.`idPatients`
+            WHERE `appointments`.`id` = :id;";
+        $buildQuery = parent::getDb()->prepare($query);
+        $buildQuery->bindValue("id", $id, PDO::PARAM_INT);
+        $buildQuery->execute();
+        $resultQuery = $buildQuery->fetch(PDO::FETCH_ASSOC);
+        if(!empty($resultQuery)) {
+            return $resultQuery;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Méthode qui permet de supprimer à la fois un patient et ses RDV via son Id
+     * 
+     * @param int
+     * @return boolean
+     */
+    public function deletePatientById(int $id) {
+        $query = "DELETE FROM `patients` WHERE `id` = :id;";
+        $buildQuery = parent::getDb()->prepare($query);
+        $buildQuery->bindValue("id", $id, PDO::PARAM_INT);
+        return $buildQuery->execute();
+    }
+
+    /**
+     * Méthode qui permet de rechercher un patient sur son prénom ou son nom
+     * 
+     * @param string
+     * @return array|boolean
+     */
+    public function searchPatient(string $search) {
+        $query = "SELECT * FROM `patients` WHERE `lastname` LIKE :search1 OR `firstname` LIKE :search2 ORDER BY `lastname`;";
+        $buildQuery = parent::getDb()->prepare($query);
+        $buildQuery->bindValue("search1", $search, PDO::PARAM_STR);
+        $buildQuery->bindValue("search2", $search, PDO::PARAM_STR);
+        $buildQuery->execute();
+        $resultQuery = $buildQuery->fetchAll(PDO::FETCH_ASSOC);
+        if(!empty($resultQuery)) {
+            return $resultQuery;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Méthode qui permet de compter le nombre de patients en base de données
+     * 
+     * @return array|boolean
+     */
+    public function countPatients() {
+        $query = "SELECT COUNT(*) AS `countPatients` FROM `patients`;";
+        $buildQuery = parent::getDb()->prepare($query);
+        $buildQuery->execute();
+        $countPatients = $buildQuery->fetch(PDO::FETCH_ASSOC);
+        if(!empty($countPatients)) {
+            return $countPatients;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Méthode qui permet de récupérer 10 patients en fonction d'une valeur de début
+     * 
+     * @param int
+     * @return array|boolean
+     */
+    public function getPatientsPaginate(int $startValue) {
+        $query = "SELECT * FROM `patients` LIMIT :startValue, 10;";
+        $buildQuery = parent::getDb()->prepare($query);
+        $buildQuery->bindValue("startValue", $startValue, PDO::PARAM_INT);
+        $buildQuery->execute();
+        $resultQuery = $buildQuery->fetchAll(PDO::FETCH_ASSOC);
+        if(!empty($resultQuery)) {
+            return $resultQuery;
+        } else {
+            return false;
+        }
     }
 }
- 
