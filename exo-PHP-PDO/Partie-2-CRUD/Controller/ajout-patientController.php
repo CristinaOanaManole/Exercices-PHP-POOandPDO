@@ -1,22 +1,65 @@
 <?php
+require "../Models/Database.php";
+require "../Models/Patients.php";
 
-require "Views/ajout-patient.php";
+if(!empty($_POST)) {
+    $regexName = "/^[a-zA-Zéèäë -]+$/";
+    $regexPhone = "/^[0-9]{10}$/";
+    $regexBirthdate = "/^[1-2][0-9]{3}[-][0-1][0-9][-]([0-2][0-9]|[3][0-1])$/";
+    $arrayErrors = [];
 
-$patients = new Patients();
+    $lastname = isset($_POST["lastname"]) ? htmlspecialchars($_POST["lastname"]) : "";
+    $firstname = isset($_POST["firstname"]) ? htmlspecialchars($_POST["firstname"]) : "";
+    $birthdate = isset($_POST["birthdate"]) ? htmlspecialchars($_POST["birthdate"]) : "";
+    $phone = isset($_POST["phone"]) ? htmlspecialchars($_POST["phone"]) : "";
+    $email = isset($_POST["email"]) ? htmlspecialchars($_POST["email"]) : "";
 
-//On test si les $_POST sont bien en place via des ternaires, si ils y sont, alors le $_POST = la variable correspondant
+    if(preg_match($regexName, $lastname)){
+        $verifiedLastname = $lastname;
+    } else {
+        $arrayErrors['lastname'] = "Veuillez renseigner une valeur correcte";
+    }
+    
+    if(preg_match($regexName, $firstname)){
+        $verifiedFirstname = $firstname;
+    } else {
+        $arrayErrors['firstname'] = "Veuillez renseigner une valeur correcte";
+    }
 
-isset($_POST['lastname']) ? $lastname = $_POST['lastname'] : "";
-isset($_POST['firstname']) ? $firstname = $_POST['firstname'] : "";
-isset($_POST['birthdate']) ? $birthdate = $_POST['birthdate'] : "";
-isset($_POST['phone']) ? $phone = $_POST['phone'] : "";
-isset($_POST['mail']) ? $mail = $_POST['mail'] : "";
+    if(preg_match($regexBirthdate, $birthdate)){
+        $verifiedBirthdate = $birthdate;
+    } else {
+        $arrayErrors['birthdate'] = "Veuillez renseigner une valeur correcte";
+    }
 
-//si les variables existent, alors on lance la requete
+    if(preg_match($regexPhone, $phone)){
+        $verifiedPhone = $phone;
+    } else {
+        $arrayErrors['phone'] = "Veuillez renseigner une valeur correcte";
+    }
 
-if (isset($lastname) && isset($firstname) && isset($birthdate) && isset($phone) && isset($mail)) {
-if ($patient->addPatient($lastname, $firstname, $birthdate, $phone, $mail)){
-    echo "<script>alert('le patient a bien été enregistré')</script>";
-};
+    if(filter_var($email, FILTER_VALIDATE_EMAIL)){
+        $verifiedEmail = $email;
+    } else {
+        $arrayErrors['email'] = "Veuillez renseigner une valeur correcte";
+    }
 
+    if(empty($arrayErrors)){
+
+        $arrayParameters = [
+            "lastname" => $verifiedLastname,
+            "firstname" => $verifiedFirstname,
+            "birthdate" => $verifiedBirthdate,
+            "phone" => $verifiedPhone,
+            "mail" => $verifiedEmail
+        ];
+
+        $Patients = new Patients();
+
+        if($Patients->addPatient($arrayParameters)) {
+            $message = "Le patient a bien été ajouté";
+        } else {
+            $message = "Il y a eu une erreur lors de l'ajout du patient";
+        }
+    }
 }

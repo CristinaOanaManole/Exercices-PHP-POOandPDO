@@ -1,20 +1,19 @@
 <?php
 require "../database/Database.php";
-require "../Models/Patient.php";
+require "../Models/Patients.php";
 require "../Models/Appointments.php";
 
 $patient = new Patients();
 $appointment = new Appointements();
 
-isset($_GET['id']) ? $patientId = $_GET['id'] : "";
+if(isset($_GET["idPatient"]) && !empty($_GET["idPatient"])) {
+    $regexId = "/^[0-9]+$/";
 
-$patientsList = $patient->getOnePatients($patientId);
-    var_dump($patientsList);
-
-
-        echo "Nom : " . $patientsList["lastname"] . "<br>";
-        echo "prénom : " . $patientsList["firstname"] . "<br>";
-        echo "Date de naissance : " . $patientsList["birthdate"] . "<br>";
-        echo "numéro de téléphone : " . $patientsList["phone"] . "<br>";
-        echo "mail : " . $patientsList["mail"] . "<br><br>";
-
+    $id = htmlspecialchars($_GET["idPatient"]);
+    if(preg_match($regexId, $id)) {
+        $verifiedId = (int)$id;
+        $patientInformations = $Patient->getOnePatientInformations($verifiedId);
+    } else {
+        $errorMessage = "Arrête de toucher à mon URL";
+    }
+}

@@ -1,6 +1,6 @@
 <?php
 
-require "Controller/indexController.php";
+//require "../Controller/indexController.php";
 
 ?>
 
@@ -11,20 +11,21 @@ require "Controller/indexController.php";
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="assets/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
   <title>Partie 2 - CRUD</title>
 </head>
 <body>
   
-<h1>Indiquer vos coordonnées</h1>
+<h1 class="text-center mt-5">Accueil</h1>
 
-<form method="post" action=".php"> 
-<label for="lastname">Votre nom : </label>
-<a href="Views/ajout-patient.php">Enregistrer un patient</a>
-<?php
-//Exercice 1- Créer une page ajout-patient.php et y créer un formulaire permettant de créer un patient. Elle doit être accessible depuis la page index.php.
-           ?>
+<div class="container">
+        <div class="row h-100 justify-content-center align-items-center">
+            <a href="Views/ajout-patient.php"  class="btn btn-primary col-3 m-3">Enregistrer un patient</a>
+            <a href="Views/liste-patients.php" class="btn btn-primary col-3 m-3">Liste des patients</a>
+            <a href="Views/liste-rendezvous.php" class="btn btn-primary col-3 m-3">Liste RDV</a>
 
-
+</div>
+</div>
 
 </body>
 </html>

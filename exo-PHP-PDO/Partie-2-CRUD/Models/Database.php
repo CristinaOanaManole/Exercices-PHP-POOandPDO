@@ -26,6 +26,6 @@ public function setDb($db)
 
 public function __construct() {
 
-    $this->setDb(new PDO("mysql:dbname=medical_patient;host=localhost;charset=utf8", "root", "", [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]));
+    $this->setDb(new PDO("mysql:dbname=hospitale2n;host=localhost;charset=utf8", "root", "", [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]));
 }
 }

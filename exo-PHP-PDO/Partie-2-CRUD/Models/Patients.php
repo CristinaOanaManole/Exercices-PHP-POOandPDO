@@ -1,156 +1,149 @@
 <?php
 
-class AddPatient extends Database {
-    
-    private $id;
-    private $lastName;
-    private $firstName;
-    private $birthDate;
-    private $phone;
-    private $mail;
+class Patients extends Database {
 
-    public function __construct() {
-        parent::__construct();
-    }
+private $id;
+private $lastname;
+private $firstname;
+private $mail;
+private $phone;
+private $birthdate;
 
 
-    /**
-     * Get the value of id
-     */ 
-    public function getId()
-    {
-        return $this->id;
-    }
+/**
+ * Get the value of id
+ */ 
+public function getId()
+{
+    return $this->id;
+}
 
-    /**
-     * Set the value of id
-     *
-     * @return  self
-     */ 
-    public function setId($id)
-    {
-        $this->id = $id;
+/**
+ * Set the value of id
+ *
+ * @return  self
+ */ 
+public function setId($id)
+{
+    $this->id = $id;
 
-        return $this;
-    }
+    return $this;
+}
 
-    /**
-     * Get the value of lastName
-     */ 
-    public function getLastName()
-    {
-        return $this->lastName;
-    }
+/**
+ * Get the value of lastname
+ */ 
+public function getLastname()
+{
+    return $this->lastname;
+}
 
-    /**
-     * Set the value of lastName
-     *
-     * @return  self
-     */ 
-    public function setLastName($lastName)
-    {
-        $this->lastName = $lastName;
+/**
+ * Set the value of lastname
+ *
+ * @return  self
+ */ 
+public function setLastname($lastname)
+{
+    $this->lastname = $lastname;
 
-        return $this;
-    }
+    return $this;
+}
 
-    /**
-     * Get the value of firstName
-     */ 
-    public function getFirstName()
-    {
-        return $this->firstName;
-    }
+/**
+ * Get the value of firstname
+ */ 
+public function getFirstname()
+{
+    return $this->firstname;
+}
 
-    /**
-     * Set the value of firstName
-     *
-     * @return  self
-     */ 
-    public function setFirstName($firstName)
-    {
-        $this->firstName = $firstName;
+/**
+ * Set the value of firstname
+ *
+ * @return  self
+ */ 
+public function setFirstname($firstname)
+{
+    $this->firstname = $firstname;
 
-        return $this;
-    }
+    return $this;
+}
 
-    /**
-     * Get the value of birthDate
-     */ 
-    public function getBirthDate()
-    {
-        return $this->birthDate;
-    }
+/**
+ * Get the value of mail
+ */ 
+public function getMail()
+{
+    return $this->mail;
+}
 
-    /**
-     * Set the value of birthDate
-     *
-     * @return  self
-     */ 
-    public function setBirthDate($birthDate)
-    {
-        $this->birthDate = $birthDate;
+/**
+ * Set the value of mail
+ *
+ * @return  self
+ */ 
+public function setMail($mail)
+{
+    $this->mail = $mail;
 
-        return $this;
-    }
+    return $this;
+}
 
-    /**
-     * Get the value of phone
-     */ 
-    public function getPhone()
-    {
-        return $this->phone;
-    }
+/**
+ * Get the value of phone
+ */ 
+public function getPhone()
+{
+    return $this->phone;
+}
 
-    /**
-     * Set the value of phone
-     *
-     * @return  self
-     */ 
-    public function setPhone($phone)
-    {
-        $this->phone = $phone;
+/**
+ * Set the value of phone
+ *
+ * @return  self
+ */ 
+public function setPhone($phone)
+{
+    $this->phone = $phone;
 
-        return $this;
-    }
+    return $this;
+}
 
-    
-    /**
-     * Get the value of mail
-     */ 
-    public function getMail()
-    {
-        return $this->mail;
-    }
+/**
+ * Get the value of birthdate
+ */ 
+public function getBirthdate()
+{
+    return $this->birthdate;
+}
 
-    /**
-     * Set the value of mail
-     *
-     * @return  self
-     */ 
-    public function setMail($mail)
-    {
-        $this->mail = $mail;
+/**
+ * Set the value of birthdate
+ *
+ * @return  self
+ */ 
+public function setBirthdate($birthdate)
+{
+    $this->birthdate = $birthdate;
 
-        return $this;
-    }
+    return $this;
+}
 
-    public function addPatient($lastname, $firstname, $birthdate, $phone, $mail) {
-        $query = "INSERT INTO patients (lastname, firstname, birthdate, phone, mail) VALUES (:lastname, :firstname, :birthdate, :phone, :mail)";
-        $queryAddPatient = parent::getDb()->prepare($query);
-        $queryAddPatient->bindValue("lastname", $lastname, PDO::PARAM_STR);
-        $queryAddPatient->bindValue("firstname", $firstname, PDO::PARAM_STR);
-        $queryAddPatient->bindValue("birthdate", $birthdate, PDO::PARAM_STR);
-        $queryAddPatient->bindValue("phone", $phone, PDO::PARAM_STR);
-        $queryAddPatient->bindValue("mail", $mail, PDO::PARAM_STR);
+public function __construct() {
+    parent::__construct();
+}
 
-
-        if($queryAddPatient->execute()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+public function addPatient($arrayParameters) {
+    $query = "INSERT INTO `patients` (`lastname`, `firstname`, `birthdate`, `phone`, `mail`) VALUES (:lastname, :firstname, :birthdate, :phone, :mail)";
+    $buildQuery = parent::getDb()->prepare($query);
+    $buildQuery->bindValue("lastname", $arrayParameters["lastname"], PDO::PARAM_STR);
+    $buildQuery->bindValue("firstname", $arrayParameters["firstname"], PDO::PARAM_STR);
+    $buildQuery->bindValue("birthdate", $arrayParameters["birthdate"], PDO::PARAM_STR);
+    $buildQuery->bindValue("phone", $arrayParameters["phone"], PDO::PARAM_STR);
+    $buildQuery->bindValue("mail", $arrayParameters["mail"], PDO::PARAM_STR);
+    return $buildQuery->execute();
+}
 
     public function displayPatients() {
         $query = "SELECT * FROM `patients`";
@@ -176,5 +169,43 @@ class AddPatient extends Database {
             return false;
         }
     }
- 
+
+   /**
+     * Méthode qui permet de modifier un patient existant
+     * 
+     * @param array
+     * @return boolean
+     */
+    public function updatePatient($arrayParameters) {
+        $query = "UPDATE `patients` SET `lastname` = :lastname, `firstname` = :firstname, `birthdate` = :birthdate, `phone` = :phone, `mail` = :mail WHERE `id` = :id;";
+        $buildQuery = parent::getDb()->prepare($query);
+        $buildQuery->bindValue("lastname", $arrayParameters["lastname"], PDO::PARAM_STR);
+        $buildQuery->bindValue("firstname", $arrayParameters["firstname"], PDO::PARAM_STR);
+        $buildQuery->bindValue("birthdate", $arrayParameters["birthdate"], PDO::PARAM_STR);
+        $buildQuery->bindValue("phone", $arrayParameters["phone"], PDO::PARAM_STR);
+        $buildQuery->bindValue("mail", $arrayParameters["mail"], PDO::PARAM_STR);
+        $buildQuery->bindValue("id", $arrayParameters["id"], PDO::PARAM_INT);
+        return $buildQuery->execute();
+    }
+
+    public function getPatients()
+    {
+        $query = "SELECT * FROM `patients`";
+        $getPatients = parent::getDb()->prepare($query);
+        $getPatients->execute();
+        $resultQuery = $getPatients->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($resultQuery)) {
+            return $resultQuery;
+        } else {
+            return false;
+        }
+    }
+
+    public function deletePatient($id){
+        $query = "DELETE FROM `patients` WHERE `id` = :id";
+        $deletePatient = parent::getDb()->prepare($query);
+        $deletePatient->bindValue("id" , $id , PDO::PARAM_STR); 
+        return $deletePatient->execute();
+    }
 }
+ 

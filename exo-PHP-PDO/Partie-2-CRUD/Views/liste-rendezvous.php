@@ -1,5 +1,5 @@
 <?php
-require "Controller/liste-rendezvousController.php";
+require "../Controller/liste-rendezvousController.php";
 ?>
 
 <!DOCTYPE html>
@@ -8,6 +8,7 @@ require "Controller/liste-rendezvousController.php";
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <title>Ajouter un patient</title>
 </head>
 <body>
@@ -39,7 +40,7 @@ require "Controller/liste-rendezvousController.php";
             <input type="submit" name="Valider" value="Envoyer">
         </form>
 
-<a href="index.php">Retour à l'accueil</a>
+<a href="../index.php">Retour à l'accueil</a>
 
 </body>
 </html>

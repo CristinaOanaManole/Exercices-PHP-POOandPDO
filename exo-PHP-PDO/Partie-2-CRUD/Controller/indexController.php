@@ -1,9 +1,11 @@
 <?php
-require "database/Database.php";
-require "Views/ajout-patient.php";
-require "Views/liste-patients.php";
-require "Views/profil-patient.php";
-require "Views/liste-rendezvous.php";
+require "../Models/Database.php";
+require "../Views/ajout-patient.php";
+require "../Views/liste-patients.php";
+require "../Views/profil-patient.php";
+require "../Views/liste-rendezvous.php";
+require "../Models/Appointment.php";
+require "../Models/Patients.php";
 
 $patients = new Patients();
 

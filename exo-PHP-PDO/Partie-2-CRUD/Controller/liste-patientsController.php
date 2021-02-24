@@ -1,7 +1,11 @@
 <?php
 
-require "Models/Patients.php";
-
+require "../Views/liste-patients.php";
+require "../database/Database.php";
+require "../Models/Patients.php";
+require "../Models/Appointment.php";
 
 $patient = new Patient();
-$resultQueryShowPatients = $patient->displayPatients();
+$appointment = new Rendezvous();
+
+$resultQueryShowPatients = $patient->displayPatients($_GET['id']);
